@@ -1,27 +1,302 @@
 aid: leena-ai
 name: Leena AI
-description: 'Leena AI is a company surfaced as a portfolio company of bessemer-venture-partners and added
-  to the API Evangelist network as a stub for enrichment. Sector: ai-ml. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Leena AI is an enterprise Agentic AI platform that deploys "AI Colleagues" — domain-specific,
+  role-based autonomous agents — to automate back-office work across IT, HR, Finance,
+  Procurement and Operations. Built on its proprietary WorkLM large language model, the platform
+  pairs a no-code AI Colleagues Studio and Workflows Studio with Agent Operating Procedures
+  (AOPs), guardrails, evals and approval paths. Its external developer surface is small but
+  real: an OAuth 2.0 protected External AOP API for triggering and polling agent runs, an Audit
+  Logs External API for compliance-grade activity export, a Knowledge Management REST connector
+  for pushing knowledge base articles, and a first-party hosted MCP server plus an A2A endpoint
+  that let third-party agents from Microsoft Copilot Studio, IBM watsonx Orchestrate, Salesforce
+  Agentforce and ServiceNow call into Leena AI's agents. The platform is region-partitioned
+  across eight named regions and carries SOC 2 Type 2, ISO/IEC 27001/27017/27018/27701, HIPAA
+  and CSA STAR certifications.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://assets.leena.ai/images/og/homepage_OG_image.webp
 url: https://raw.githubusercontent.com/api-evangelist/leena-ai/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
-- bessemer-venture-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+  - bessemer-venture-partners
+x-tier: enriched
+x-tier-reason: >-
+  Three documented external REST APIs plus a first-party hosted MCP and A2A server, an RFC
+  9116 security.txt, a public trust center with named certifications, llms.txt on two hosts
+  and a dated monthly changelog.
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
-- Company
-- Ai Ml
-apis: []
+  - Company
+  - Ai Ml
+  - Agentic AI
+  - Artificial Intelligence
+  - Enterprise Software
+  - Human Resources
+  - IT Service Management
+  - Employee Experience
+  - Workflow Automation
+  - Conversational AI
+  - Model Context Protocol
+  - Knowledge Management
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
-- FN: APIs.json
-  email: info@apis.io
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+  - FN: APIs.json
+    email: info@apis.io
+apis:
+- aid: leena-ai:leena-ai-analytics-api
+  name: Leena AI Analytics API
+  description: AI Colleague run metrics.
+  humanURL: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  baseURL: https://us-east-1-aic.leena.ai
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/leena-ai-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: APIReference
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: Authentication
+    url: authentication/leena-ai-authentication.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: APIReference
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: OAuthScopes
+    url: scopes/leena-ai-scopes.yml
+  - type: RateLimits
+    url: rate-limits/leena-ai-rate-limits.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/rest
+- aid: leena-ai:leena-ai-aop-api
+  name: Leena AI AOP API
+  description: Agent Operating Procedure execution and status.
+  humanURL: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  baseURL: https://us-east-1-aic.leena.ai
+  tags:
+  - AOP
+  properties:
+  - type: OpenAPI
+    url: openapi/leena-ai-aop-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: APIReference
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: Authentication
+    url: authentication/leena-ai-authentication.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: APIReference
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: OAuthScopes
+    url: scopes/leena-ai-scopes.yml
+  - type: RateLimits
+    url: rate-limits/leena-ai-rate-limits.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/rest
+- aid: leena-ai:leena-ai-audit-logs-api
+  name: Leena AI Audit Logs API
+  description: Retrieve audit log records for the authenticated bot.
+  humanURL: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  baseURL: https://us-east-1-aic.leena.ai
+  tags:
+  - Audit Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/leena-ai-audit-logs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: APIReference
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: Authentication
+    url: authentication/leena-ai-authentication.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: APIReference
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: OAuthScopes
+    url: scopes/leena-ai-scopes.yml
+  - type: RateLimits
+    url: rate-limits/leena-ai-rate-limits.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/rest
+- aid: leena-ai:leena-ai-authentication-api
+  name: Leena AI Authentication API
+  description: Obtain a bearer token.
+  humanURL: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  baseURL: https://us-east-1-aic.leena.ai
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/leena-ai-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: APIReference
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: Authentication
+    url: authentication/leena-ai-authentication.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: APIReference
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: OAuthScopes
+    url: scopes/leena-ai-scopes.yml
+  - type: RateLimits
+    url: rate-limits/leena-ai-rate-limits.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/rest
+- aid: leena-ai:leena-ai-knowledge-articles-api
+  name: Leena AI Knowledge Articles API
+  description: Stage attachments and sync articles into the Leena Knowledge Base.
+  humanURL: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  baseURL: https://us-east-1-aic.leena.ai
+  tags:
+  - Knowledge Articles
+  properties:
+  - type: OpenAPI
+    url: openapi/leena-ai-knowledge-articles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: APIReference
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: Authentication
+    url: authentication/leena-ai-authentication.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: APIReference
+    url: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - type: OAuthScopes
+    url: scopes/leena-ai-scopes.yml
+  - type: RateLimits
+    url: rate-limits/leena-ai-rate-limits.yml
+  - type: Documentation
+    url: https://docs.leena.ai/docs/rest
 common:
-- type: Website
-  url: https://leena.ai
+  - type: Website
+    url: https://leena.ai
+  - type: DeveloperPortal
+    url: https://docs.leena.ai/
+  - type: Documentation
+    url: https://docs.leena.ai/
+  - type: APIReference
+    url: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - type: GettingStarted
+    url: https://docs.leena.ai/docs/getting-started
+  - type: Quickstart
+    url: https://docs.leena.ai/docs/quick-start-guide
+  - type: Support
+    url: https://leena.ai/contact-us
+  - type: Resources
+    url: https://leena.ai/resources
+  - type: GitHubOrganization
+    url: https://github.com/leena-ai
+  - type: TermsOfService
+    url: https://leena.ai/terms-and-conditions
+  - type: PrivacyPolicy
+    url: https://leena.ai/privacy-policy
+  - type: ChangeLog
+    url: https://docs.leena.ai/changelog
+  - type: ChangeLog
+    url: changelog/leena-ai-changelog.yml
+  - type: MCPServer
+    url: mcp/leena-ai-mcp.yml
+  - type: Authentication
+    url: authentication/leena-ai-authentication.yml
+  - type: OAuthScopes
+    url: scopes/leena-ai-scopes.yml
+  - type: RateLimits
+    url: rate-limits/leena-ai-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/leena-ai-problem-types.yml
+  - type: Conventions
+    url: conventions/leena-ai-conventions.yml
+  - type: Lifecycle
+    url: lifecycle/leena-ai-lifecycle.yml
+  - type: Conformance
+    url: conformance/leena-ai-conformance.yml
+  - type: Compliance
+    url: security/leena-ai-trust-center.yml
+  - type: TrustCenter
+    url: security/leena-ai-trust-center.yml
+  - type: Security
+    url: security/leena-ai-vulnerability-disclosure.yml
+  - type: VulnerabilityDisclosure
+    url: security/leena-ai-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/leena-ai-domain-security.yml
+  - type: SecurityTxt
+    url: well-known/leena-ai-security.txt
+  - type: WellKnown
+    url: well-known/leena-ai-well-known.yml
+  - type: Packages
+    url: packages/leena-ai-packages.yml
+  - type: LLMsTxt
+    url: llms/leena-ai-llms.txt
+  - type: DataModel
+    url: data-model/leena-ai-data-model.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+x-not-published:
+  note: >-
+    Recorded so re-runs do not re-probe. Each was searched or probed on 2026-07-19 and
+    genuinely does not exist — no pointer is emitted for any of them.
+  items:
+    - what: OpenAPI / Swagger definition
+      detail: >-
+        No machine-readable spec published; /openapi.json, /openapi.yaml and /swagger.json
+        return 404 on docs and API hosts. The files in openapi/ are generated from prose docs.
+    - what: StatusPage
+      detail: status.leena.ai does not resolve; no public status dashboard found.
+    - what: Deprecation policy
+      detail: No deprecation policy and no RFC 8594 Sunset/Deprecation header support.
+    - what: SDKs
+      detail: >-
+        No API client library in any language. The two first-party @leena-ai npm packages are
+        unmaintained 2022 NativeScript mobile-embed SDKs, not API clients, so no SDKs pointer
+        is emitted — see packages/leena-ai-packages.yml.
+    - what: Idempotency
+      detail: >-
+        No idempotency key on POST /api/v1/external/aop/execute or any other unsafe operation,
+        so no Idempotency pointer is emitted.
+    - what: AsyncAPI / Webhooks
+      detail: >-
+        No consumer-subscribable event surface. Documented webhook support is inbound
+        connector configuration, not an event catalogue.
+    - what: Pricing
+      detail: No public pricing page (enterprise sales motion); /pricing returns 404.
+    - what: SignUp
+      detail: No public self-service signup for the platform or for API credentials.
+    - what: Roadmap
+      detail: No public roadmap found.
+    - what: Postman
+      detail: No public Postman collection or workspace found.
+    - what: Sandbox
+      detail: >-
+        Staging and production environments are documented, but no public sandbox, test
+        credentials or magic test values are published.
+    - what: CLI
+      detail: No first-party command line interface published.
+    - what: Protobuf / gRPC
+      detail: No .proto published on GitHub, buf.build or the docs.
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
