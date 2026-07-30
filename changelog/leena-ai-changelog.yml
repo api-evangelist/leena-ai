@@ -1,0 +1,56 @@
+generated: '2026-07-19'
+method: searched
+url: https://docs.leena.ai/changelog
+source: https://docs.leena.ai/changelog
+summary: >-
+  Leena AI publishes a dated changelog on its documentation site as a monthly "Product
+  Newsletter", released on the first of each month and covering the prior month. Entries
+  are product-level release notes rather than API-versioned change records — the index
+  carries titles and dates, with the detail on each newsletter page. No breaking-change
+  flags, no API version numbers and no machine-readable feed are published.
+scheme:
+  type: dated
+  cadence: monthly
+  release_day: 1st of the month
+  covers: the preceding calendar month
+  versioned: false
+  breaking_change_flags: false
+  feed: null
+  format: product newsletter
+current_version: null
+current_version_note: >-
+  Leena AI does not publish a platform version number alongside its changelog; the APIs are
+  versioned only by URI path (v1 / v1.0). See lifecycle/leena-ai-lifecycle.yml.
+entries:
+  - title: Product Newsletter — June 2026
+    date: '2026-07-01'
+    covers: '2026-06'
+    breaking: unknown
+  - title: Product Newsletter — May 2026
+    date: '2026-06-01'
+    covers: '2026-05'
+    breaking: unknown
+  - title: Product Newsletter — April 2026
+    date: '2026-05-01'
+    covers: '2026-04'
+    breaking: unknown
+  - title: Product Newsletter — March 2026
+    date: '2026-04-01'
+    covers: '2026-03'
+    breaking: unknown
+  - title: Product Newsletter — February 2026
+    date: '2026-03-01'
+    covers: '2026-02'
+    breaking: unknown
+  - title: Product Newsletter — January 2026
+    date: '2026-02-01'
+    covers: '2026-01'
+    breaking: unknown
+notes: >-
+  Entry titles and dates are transcribed verbatim from the changelog index. The per-entry
+  contents were not enumerated because the index page carries only titles and dates;
+  `breaking` is recorded as unknown rather than guessed.
+gaps:
+  - No RSS/Atom or JSON feed for the changelog.
+  - No explicit breaking-change labelling.
+  - Release notes are product-level, not per-API-version.

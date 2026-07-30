@@ -1,0 +1,61 @@
+generated: '2026-07-19'
+method: searched
+status: published
+source: https://docs.leena.ai/docs/leena-ai-mcp-server
+notes: >-
+  Leena AI publishes a first-party, hosted MCP server plus an A2A (Agent-to-Agent) endpoint.
+  Both are enabled per-tenant from Orchestrator Settings, so the concrete MCP URL is shown
+  to the administrator after enablement rather than published as a single global endpoint.
+  Leena AI documents only that the URL ends in `/mcp/`; no global URL is asserted here.
+server:
+  name: leena-ai
+  transport: http
+  url_pattern: 'https://<tenant-mcp-host>/mcp/'
+  url_published: false
+  url_discovery: >-
+    Orchestrator Settings shows the MCP URL after MCP is enabled for the tenant.
+  hosting: >-
+    Leena AI states the MCP server runs in their own infrastructure across 14+ global
+    regions.
+  docs: https://docs.leena.ai/docs/leena-ai-mcp-server
+  overview: https://leena.ai/mcp-interoperability
+authentication:
+  type: oauth2
+  description: >-
+    Both MCP and A2A use OAuth 2.0, with the access token sent as a Bearer token in the
+    Authorization header. Every call is bound to a real user identity via OAuth 2.0.
+  setup:
+    - Enable the MCP server and A2A in Orchestrator Settings.
+    - Generate an OAuth Client ID and client secret.
+    - Register an HTTPS redirect URI.
+    - Configure the third-party MCP client with the MCP URL and the generated credentials.
+tools:
+  - name: send_message
+    description: Sends a natural-language instruction to the AI Colleague.
+    source: https://docs.leena.ai/docs/leena-ai-mcp-server
+  - name: request_details
+    description: >-
+      Checks the current state of a conversation without sending a new message.
+    source: https://docs.leena.ai/docs/leena-ai-mcp-server
+  - name: cancel
+    description: Stops a running or paused request in a thread.
+    source: https://docs.leena.ai/docs/leena-ai-mcp-server
+a2a:
+  supported: true
+  protocol: A2A (Agent-to-Agent)
+  endpoint_pattern: '.../a2a/bots/{bot_id}/rpc'
+  description: >-
+    A2A lets external agents discover Leena AI's AI Colleagues and collaborate across
+    vendor boundaries. Leena AI names Microsoft Copilot Studio, IBM watsonx Orchestrate,
+    Salesforce Agentforce and ServiceNow as interoperating agent platforms.
+related_apis:
+  - name: External AOP API
+    execute: POST /api/v1/external/aop/execute
+    status: GET /api/v1/external/aop/items/{aop_item_id}/status
+    spec: openapi/leena-ai-aop-openapi.yml
+tool_catalog_claim:
+  description: >-
+    Leena AI markets 1000+ pre-built tools across 200+ enterprise systems available to its
+    agents. Individual tool names are not published on the public interoperability page, so
+    they are not enumerated here.
+  source: https://leena.ai/mcp-interoperability

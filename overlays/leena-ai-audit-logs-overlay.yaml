@@ -1,0 +1,82 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Leena AI Audit Logs External API
+  version: 1.0.0
+  x-generated: '2026-07-19'
+  x-method: generated
+  x-source: openapi/leena-ai-audit-logs-openapi.yml
+  x-note: >-
+    Applies API Evangelist annotations on top of the generated Audit Logs spec without
+    mutating it.
+extends: ../openapi/leena-ai-audit-logs-openapi.yml
+actions:
+  - target: $.info
+    description: Record provenance and cross-links.
+    update:
+      x-apievangelist:
+        enriched: '2026-07-19'
+        spec_origin: generated-from-prose-docs
+        provider_publishes_openapi: false
+        scopes: scopes/leena-ai-scopes.yml
+        rate_limits: rate-limits/leena-ai-rate-limits.yml
+        errors: errors/leena-ai-problem-types.yml
+      x-maturity: beta
+      x-maturity-source: >-
+        Documented as "Audit Logs External API — Authentication & Usage Guide (Beta)".
+  - target: $.paths['/external/v1/audit-logs'].get
+    description: >-
+      Annotate the incremental-sync contract and the rate limit, the two things a data
+      pipeline needs and the spec text alone does not make obvious.
+    update:
+      x-agentic-access:
+        action-class: read
+        consequence: low
+        reversible: true
+        data-sensitivity: high
+        rationale: >-
+          Audit records carry actor identity including email, phone and employeeId, plus IP
+          and user agent. Treat the response as personal data.
+      x-pagination:
+        style: cursor
+        cursor_param: cursor
+        cursor_source_field: nextCursor
+        more_field: hasMore
+        sort: ascending by (updatedAt, _id)
+        opaque: true
+        guidance: >-
+          Pass nextCursor back verbatim. Although the cursor decodes to
+          {"updatedAt","_id"}, Leena AI documents it as opaque — do not construct one.
+      x-incremental-sync:
+        supported: true
+        watermark_field: updatedAt
+        guidance: >-
+          Persist the highest `updatedAt` seen, then resume with that value on the next run.
+          Because the bound is strictly greater-than, records sharing a timestamp are
+          disambiguated by the `_id` component of the cursor — prefer resuming from the
+          cursor over the bare watermark when a run is interrupted mid-page.
+      x-rate-limit:
+        limit: 60
+        window: 60s
+        scope: per OAuth client (JWT `id` claim)
+        headers: none
+        retry_after: false
+        guidance: >-
+          No Retry-After or quota headers are returned. Use exponential backoff on 429 and
+          request limit=1000 to minimise call volume.
+  - target: $.paths['/external/v1/audit-logs'].get.responses['401']
+    description: Record that insufficient scope is signalled as 401 here but 403 on the AOP API.
+    update:
+      x-anomaly:
+        issue: insufficient-scope-status-inconsistency
+        detail: >-
+          "Insufficient OAuth scope" is returned as 401 on this API and as 403 on the
+          External AOP API. Clients must handle both statuses for the same condition.
+  - target: $.components.schemas.Actor
+    description: Flag the personal data carried in actor and targetUser.
+    update:
+      x-pii:
+        contains_pii: true
+        fields: [email, phone, employeeId, userId]
+        guidance: >-
+          Minimise retention and restrict access when exporting audit logs into a SIEM or
+          warehouse.

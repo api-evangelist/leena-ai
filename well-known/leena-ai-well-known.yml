@@ -1,0 +1,80 @@
+generated: '2026-07-19'
+method: searched
+probed_on: '2026-07-19'
+summary: >-
+  Leena AI publishes an RFC 9116 security.txt on its primary web host, pointing at a named
+  security contact and at its trust center as the disclosure policy. No other .well-known
+  discovery document is served on any host — notably no OAuth authorization server metadata
+  (RFC 8414) or OpenID Connect discovery, despite the APIs being OAuth 2.0 protected, and
+  no api-catalog (RFC 9727).
+hosts:
+  - host: https://leena.ai
+    role: primary web / marketing host
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: leena-ai-security.txt
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://docs.leena.ai
+    role: documentation host
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://acl.leena.ai
+    role: authentication / OAuth token issuance (default region)
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://us-east-1-acl.leena.ai
+    role: authentication / OAuth token issuance (us-east-1)
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://us-east-1-aic.leena.ai
+    role: AOP / AI Colleague execution (us-east-1)
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://auditlogs.leena.ai
+    role: audit logs (default region)
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+llms_txt:
+  - url: https://leena.ai/llms.txt
+    status: 200
+    bytes: 3345
+    file: ../llms/leena-ai-llms.txt
+  - url: https://docs.leena.ai/llms.txt
+    status: 200
+    bytes: 35960
+    file: ../llms/leena-ai-docs-llms.txt
+gaps:
+  - >-
+    No RFC 8414 OAuth authorization server metadata on the ACL token hosts, so OAuth
+    clients cannot discover the token endpoint programmatically.
+  - No RFC 9727 /.well-known/api-catalog.
+  - security.txt is served only from the marketing host, not from any API host.

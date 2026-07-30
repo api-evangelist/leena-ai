@@ -1,0 +1,94 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Leena AI External AOP API
+  version: 1.0.0
+  x-generated: '2026-07-19'
+  x-method: generated
+  x-source: openapi/leena-ai-aop-openapi.yml
+  x-note: >-
+    Applies API Evangelist annotations on top of the generated AOP spec. It does not mutate
+    openapi/leena-ai-aop-openapi.yml. Every statement here is traceable to Leena AI's
+    published documentation or to a probe recorded in this repo.
+extends: ../openapi/leena-ai-aop-openapi.yml
+actions:
+  - target: $.info
+    description: Record provenance and the absence of a provider-published machine-readable spec.
+    update:
+      x-apievangelist:
+        enriched: '2026-07-19'
+        spec_origin: generated-from-prose-docs
+        provider_publishes_openapi: false
+        conventions: conventions/leena-ai-conventions.yml
+        errors: errors/leena-ai-problem-types.yml
+        authentication: authentication/leena-ai-authentication.yml
+        lifecycle: lifecycle/leena-ai-lifecycle.yml
+  - target: $.info
+    description: Flag the beta maturity Leena AI declares in the guide title.
+    update:
+      x-maturity: beta
+      x-maturity-source: >-
+        Documented as "External AOP API — Authentication & Usage Guide (Beta)".
+  - target: $.paths['/api/v1/external/aop/execute'].post
+    description: >-
+      Mark the one side-effecting operation in the surface and record that no idempotency
+      contract is published for it.
+    update:
+      x-agentic-access:
+        action-class: write
+        consequence: high
+        reversible: partial
+        escalation: human-approval-recommended
+        rationale: >-
+          Starts an autonomous agent run that can act across connected enterprise systems.
+      x-idempotency:
+        supported: false
+        key_header: null
+        guidance: >-
+          Leena AI documents no idempotency key. A retried execute is expected to start a
+          second agent run. Deduplicate caller-side and confirm with getAopStatus before
+          retrying.
+      x-async:
+        pattern: execute-then-poll
+        poll_operation: getAopStatus
+        callback: none
+  - target: $.paths['/api/v1/external/aop/items/{aop_item_id}/status'].get
+    description: Record terminal vs non-terminal states so polling loops can be written correctly.
+    update:
+      x-agentic-access:
+        action-class: read
+        consequence: low
+        reversible: true
+      x-polling:
+        terminal_states: [completed, failed, aborted]
+        non_terminal_states: [in_progress, paused]
+        guidance: >-
+          Poll with exponential backoff. `paused` is not terminal — an AOP may be awaiting a
+          human approval step and can resume.
+  - target: $.paths['/api/analytics/query/external'].get
+    description: >-
+      Flag the non-standard success semantics — this endpoint returns HTTP 200 on query
+      failure.
+    update:
+      x-agentic-access:
+        action-class: read
+        consequence: low
+        reversible: true
+      x-error-semantics:
+        soft_failure: true
+        guidance: >-
+          Do not treat HTTP 200 as success. Inspect the `isSuccess` boolean on every
+          response; a failed query is returned as 200 with isSuccess false.
+      x-host-note: >-
+        Served from the region analytics host (https://<region-code>-analytics-api.leena.ai),
+        not the AIC host used by the AOP operations.
+  - target: $.components.securitySchemes.oauth2
+    description: Record the RFC 9700 finding against the documented grant.
+    update:
+      x-conformance:
+        rfc6749: true
+        rfc6750: true
+        rfc9700: false
+        rfc9700_finding: >-
+          RFC 9700 states the resource owner password credentials grant MUST NOT be used.
+          It is Leena AI's only documented flow for this API.
+        rfc8414_metadata: false

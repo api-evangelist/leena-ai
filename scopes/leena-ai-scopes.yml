@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: searched
+docs: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+source: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+summary: >-
+  Leena AI's external APIs are OAuth 2.0 protected and the documentation names one concrete
+  scope. Leena AI does not publish a consolidated scope reference page, so only the scope
+  it documents explicitly is recorded here. Insufficient scope is signalled as HTTP 401
+  with the message "Insufficient OAuth scope" rather than the more usual 403.
+oauth_flow: password
+token_endpoint: 'https://<region-code>-acl.leena.ai/api/v1.0/oauth/token'
+scopes:
+  - name: audit-logs:read
+    description: Read audit log records via GET /external/v1/audit-logs.
+    api: openapi/leena-ai-audit-logs-openapi.yml
+    operations:
+      - listAuditLogs
+    source: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+naming_convention:
+  pattern: '<resource>:<action>'
+  observed:
+    - audit-logs:read
+  note: >-
+    Only one scope is publicly documented. The External AOP API returns 403 "insufficient
+    scope" on its execute and status operations, implying additional scopes exist, but
+    Leena AI does not publish their names — they are deliberately not guessed here.
+enforcement:
+  insufficient_scope_status: 401
+  insufficient_scope_message: Insufficient OAuth scope
+gaps:
+  - No public consolidated OAuth scope / permissions reference page.
+  - AOP execute and status scope names are not published.

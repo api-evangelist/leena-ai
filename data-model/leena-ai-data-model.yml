@@ -1,0 +1,253 @@
+generated: '2026-07-19'
+method: derived
+source:
+  - openapi/leena-ai-aop-openapi.yml
+  - openapi/leena-ai-audit-logs-openapi.yml
+  - openapi/leena-ai-knowledge-management-openapi.yml
+summary: >-
+  Entity graph derived from the schemas and id-reference fields in the generated Leena AI
+  specs, plus the tenancy concepts Leena AI documents in prose. The external API surface is
+  narrow, so this is a partial model of the platform: it covers agent execution, audit
+  records and knowledge articles. The platform's richer internal objects — AI Colleagues,
+  Tools, Workflows, Guardrails, Evals — are documented conceptually but have no external
+  read API, so they appear here as referenced-only entities without field detail.
+entities:
+  - name: AopItem
+    description: A single execution of an Agent Operating Procedure.
+    source: openapi/leena-ai-aop-openapi.yml#/components/schemas/AopStatusResponse
+    id_field: aop_item_id
+    fields:
+      - name: aop_item_id
+        type: string
+        role: primary_key
+      - name: reference_id
+        type: string
+        role: caller_correlation
+      - name: request_id
+        type: string
+      - name: run_id
+        type: string
+      - name: status
+        type: enum
+        values: [in_progress, completed, failed, paused, aborted]
+      - name: initiated_at
+        type: date-time
+      - name: completed_at
+        type: date-time
+        nullable: true
+    relationships:
+      - type: belongs_to
+        target: Aop
+        via: aop_id
+        note: Supplied on execute; not echoed on the status response.
+    operations:
+      create: executeAop
+      read: getAopStatus
+  - name: Aop
+    description: >-
+      An Agent Operating Procedure — the codified business process an AI Colleague executes.
+      Referenced by id on execute; no external read endpoint is published.
+    id_field: aop_id
+    id_format: identifier or ObjectId
+    external_read_api: false
+    docs: https://docs.leena.ai/docs/understanding-aop-format
+    relationships:
+      - type: has_many
+        target: AopItem
+        via: aop_id
+      - type: belongs_to
+        target: AiColleague
+        via: bot_id
+  - name: AiColleague
+    description: >-
+      A domain-specific, role-based agent (referred to as a bot in identifiers). Addressed as
+      bot_id on the A2A endpoint and carried as the botId claim in access tokens.
+    id_field: botId
+    external_read_api: false
+    docs: https://docs.leena.ai/docs/tools
+    relationships:
+      - type: has_many
+        target: Aop
+        via: bot_id
+      - type: has_many
+        target: AuditLog
+        via: botId
+      - type: has_many
+        target: Tool
+        via: bot_id
+    endpoints:
+      a2a: '.../a2a/bots/{bot_id}/rpc'
+  - name: Tool
+    description: >-
+      A built-in or custom capability mapped to an AI Colleague. Leena AI markets 1000+
+      pre-built tools across 200+ enterprise systems. No external read API.
+    external_read_api: false
+    docs: https://docs.leena.ai/docs/built-in-tools
+    relationships:
+      - type: belongs_to
+        target: AiColleague
+        via: bot_id
+  - name: AuditLog
+    description: An immutable record of an activity performed in the platform.
+    source: openapi/leena-ai-audit-logs-openapi.yml#/components/schemas/ExternalAuditLog
+    id_field: _id
+    id_format: 24-character hex (ObjectId style)
+    secondary_id: auditLogId
+    fields:
+      - name: _id
+        type: string
+        role: primary_key
+      - name: auditLogId
+        type: string
+        role: human_readable_key
+      - name: activity
+        type: string
+      - name: priority
+        type: enum
+        values: [critical, high, normal, low]
+      - name: status
+        type: enum
+        values: [success, in-progress, fail]
+      - name: message
+        type: string
+      - name: generatedAt
+        type: date-time
+      - name: updatedAt
+        type: date-time
+        role: sort_key
+      - name: ip
+        type: string
+        pii: true
+      - name: useragent
+        type: string
+      - name: metadata
+        type: array
+      - name: redirectionLink
+        type: string
+    relationships:
+      - type: belongs_to
+        target: AiColleague
+        via: botId
+      - type: belongs_to
+        target: Component
+        via: componentId
+      - type: belongs_to
+        target: Submodule
+        via: submoduleId
+      - type: has_one
+        target: Actor
+        via: actor
+      - type: has_one
+        target: Actor
+        via: targetUser
+        note: Optional — present when the activity acted upon a second user.
+      - type: references
+        target: Resource
+        via: resourceId
+    operations:
+      list: listAuditLogs
+    sort: ascending by (updatedAt, _id)
+  - name: Actor
+    description: The identity that performed, or was the target of, an audited activity.
+    source: openapi/leena-ai-audit-logs-openapi.yml#/components/schemas/Actor
+    id_field: userId
+    pii: true
+    fields:
+      - name: userId
+        type: string
+        role: primary_key
+      - name: userType
+        type: enum
+        values: [dashboard, bot, none]
+      - name: source
+        type: string
+      - name: email
+        type: string
+        pii: true
+      - name: phone
+        type: string
+        pii: true
+      - name: employeeId
+        type: string
+        pii: true
+    relationships:
+      - type: has_many
+        target: AuditLog
+        via: actor.userId
+  - name: KnowledgeArticle
+    description: >-
+      A knowledge base article synced from a source system, upserted on the caller-supplied
+      reference_id.
+    source: openapi/leena-ai-knowledge-management-openapi.yml#/components/schemas/ArticleSyncRequest
+    id_field: reference_id
+    id_origin: caller-supplied (source system identifier)
+    fields:
+      - name: reference_id
+        type: string
+        role: primary_key
+      - name: html_content
+        type: string
+    relationships:
+      - type: has_many
+        target: Attachment
+        via: attachments
+      - type: has_one
+        target: ArticlePermissions
+        via: permissions
+    operations:
+      upsert: syncKnowledgeArticle
+    docs: https://docs.leena.ai/docs/lifecycle-of-knowledge-articles-in-leena-km
+  - name: Attachment
+    description: A staged file referenced by one or more knowledge articles.
+    source: openapi/leena-ai-knowledge-management-openapi.yml#/components/schemas/AttachmentResponse
+    id_field: attachment_id
+    relationships:
+      - type: belongs_to
+        target: KnowledgeArticle
+        via: attachments
+    operations:
+      create: uploadKnowledgeAttachment
+  - name: ArticlePermissions
+    description: Visibility rules scoping an article to departments, locations and user groups.
+    source: openapi/leena-ai-knowledge-management-openapi.yml#/components/schemas/ArticlePermissions
+    fields:
+      - name: department
+        type: array
+      - name: location
+        type: array
+      - name: user_groups
+        type: array
+    relationships:
+      - type: belongs_to
+        target: KnowledgeArticle
+  - name: Component
+    description: Referenced by componentId on audit records. No external read API.
+    external_read_api: false
+  - name: Submodule
+    description: Referenced by submoduleId on audit records. No external read API.
+    external_read_api: false
+  - name: Resource
+    description: >-
+      The object an audited activity acted upon, referenced by resourceId. Polymorphic; no
+      external read API.
+    external_read_api: false
+id_conventions:
+  - pattern: 24-character hexadecimal
+    entities: [AuditLog, Aop]
+    note: MongoDB ObjectId style. AOP accepts either an identifier or an ObjectId.
+  - pattern: caller-supplied
+    entities: [KnowledgeArticle]
+    note: reference_id comes from the source system, making sync idempotent by key.
+  - pattern: opaque server-generated
+    entities: [AopItem, Attachment]
+tenancy:
+  key: botId
+  note: >-
+    Tenancy is carried in the access token as a botId claim. The Audit Logs API rejects a
+    token without one, so every audit read is implicitly scoped to a single AI Colleague.
+gaps:
+  - >-
+    No external read API for AI Colleagues, AOPs, Tools, Workflows, Guardrails or Evals — the
+    platform's primary objects can be executed and audited externally but not enumerated.
+  - No list operation for AopItem; runs are discoverable only by the id returned from execute.
+  - Component, Submodule and Resource are referenced by id but never resolvable externally.

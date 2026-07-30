@@ -1,0 +1,123 @@
+# Leena AI
+
+Leena AI is an enterprise Agentic AI platform that deploys AI Colleagues to automate and run back-office work across IT, HR, Finance, Procurement, and Operations with measurable ROI.
+
+The platform is trusted by **25M+ employees and deployed at 500+ global enterprises** across industries including beverages, healthcare, finance, telecom, media, education, and technology. Customers include Coca-Cola, Nestlé, MongoDB, Etihad, Swiggy, CIPLA, Godrej, Abbott and more.
+
+---
+
+## Core Concepts
+
+### Agentic AI
+Leena AI follows an Agentic AI architecture where autonomous and semi-autonomous AI Colleagues:
+- Understand user intent
+- Reason across enterprise context
+- Take actions across systems
+- Learn from outcomes
+- Operate within governed guardrails
+
+Agentic AI Architecture:
+https://leena.ai/Agentic-AI-Architecture
+
+---
+
+## AI Colleagues
+
+AI Colleagues are domain-specific, role-based AI agents that work like digital coworkers.
+
+They are:
+- Pre-trained for enterprise workflows
+- Voice and chat enabled
+- Capable of multi-step reasoning
+- Integrated with enterprise systems
+- Governed with approvals, policies, and audit trails
+
+AI Colleagues Studio:
+https://leena.ai/ai-colleagues-studio
+
+---
+
+## AI Colleagues Studio
+
+AI Colleagues Studio is a no-code and low-code environment to:
+- Customize existing AI Colleagues
+- Build new AI Colleagues
+- Define tools, actions, and workflows
+- Configure policies, approvals, and escalation
+- Monitor performance and outcomes
+
+The Studio enables faster deployment of Agentic AI without development cycles of months.
+https://leena.ai/ai-colleagues-studio
+
+---
+
+## Enterprise Capabilities
+
+Leena AI provides:
+- Agent orchestration and coordination
+- Enterprise knowledge grounding
+- Secure tool execution
+- Human-in-the-loop workflows
+- Policy enforcement and compliance
+- Observability and governance
+
+The platform is LLM-agnostic and integrates with enterprise systems such as HRIS, ITSM, ERP, and CRM.
+
+---
+
+## Customers & Impact
+
+Trusted by global enterprises and CXOs, Leena AI helps reduce manual support interactions, boost employee productivity, and cut operational costs with 70%+ automation across service functions.
+
+Customers share real outcomes:
+- Faster ticket resolution and real-time assistance
+- Seamless integrations with SAP, SharePoint, LMS, ERP
+- Consistent experiences across HR, IT, and Finance support
+
+---
+
+## Recognition & Trust
+
+Leena AI appears in leading industry research reports and has been named a Leader in Gartner's Emerging Market Quadrant multiple times. The platform is featured in analyst publications including Gartner and G2 for 2025.
+
+Recognition:
+https://leena.ai/recognition
+
+---
+
+## Primary Website
+
+https://leena.ai
+
+---
+
+## Intended Use
+
+This content is intended for:
+- AI assistants
+- LLM-based search and retrieval systems
+- Enterprise AI agents
+- Documentation and summarization systems
+
+The information reflects Leena AI's current Agentic AI positioning, customer adoption, and product architecture.
+
+---
+
+## Legal
+
+- Privacy Policy: https://leena.ai/privacy-policy
+- Terms and Conditions: https://leena.ai/terms-and-conditions
+- Cookie Policy: https://leena.ai/cookie-policy
+
+---
+
+## Social Media
+
+- Twitter: @LeenaAI_
+- Website: https://leena.ai
+
+---
+
+## Contact
+
+For enterprise inquiries and demos, visit: https://leena.ai/schedule-demo

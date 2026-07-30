@@ -1,0 +1,99 @@
+generated: '2026-07-19'
+method: searched
+sources:
+  - https://docs.leena.ai/changelog
+  - https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - https://docs.leena.ai/docs/understanding-environments
+summary: >-
+  Leena AI versions its external APIs in the URL path and ships a monthly dated product
+  newsletter as its changelog. Two of its three external APIs are explicitly labelled Beta.
+  It publishes NO formal deprecation policy, NO Sunset/Deprecation header support, NO
+  public SLA and NO public status page — the operational-maturity gaps in an otherwise
+  well-documented platform.
+versioning:
+  style: uri_path
+  observed:
+    - version: v1.0
+      path: /api/v1.0/oauth/token
+      service: acl (authentication)
+    - version: v1
+      path: /api/v1/external/aop/
+      service: aic (AOP execution)
+    - version: v1
+      path: /external/v1/audit-logs
+      service: auditlogs
+  consistency: >-
+    Inconsistent — the version segment appears as `v1.0` on auth, `v1` under `/api/` on
+    AOP, and `v1` under `/external/` on audit logs.
+  breaking_change_policy_published: false
+maturity:
+  - api: External AOP API
+    stage: beta
+    evidence: >-
+      Documented as "External AOP API — Authentication & Usage Guide (Beta)".
+    spec: openapi/leena-ai-aop-openapi.yml
+  - api: Audit Logs External API
+    stage: beta
+    evidence: >-
+      Documented as "Audit Logs External API — Authentication & Usage Guide (Beta)".
+    spec: openapi/leena-ai-audit-logs-openapi.yml
+  - api: Knowledge Management REST Connector
+    stage: ga
+    evidence: Documented without a beta label.
+    spec: openapi/leena-ai-knowledge-management-openapi.yml
+  - api: MCP & A2A server
+    stage: ga
+    evidence: Documented and marketed as an enabled-per-tenant product capability.
+    spec: mcp/leena-ai-mcp.yml
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy, notice period, or RFC 8594 Sunset/Deprecation header support is
+    published. No operation in the documented surface is marked deprecated.
+status_page:
+  url: null
+  published: false
+  probed:
+    - url: https://status.leena.ai
+      result: no DNS resolution
+      probed_on: '2026-07-19'
+  note: >-
+    No public status page was found. status.leena.ai does not resolve. Uptime and incident
+    communication appear to be handled through the customer relationship rather than a
+    public dashboard.
+sla:
+  published: false
+  note: >-
+    No public SLA or uptime commitment is published. Leena AI states its MCP server runs
+    across 14+ global regions but publishes no availability target.
+environments:
+  documented: true
+  url: https://docs.leena.ai/docs/understanding-environments
+  stages:
+    - staging
+    - production
+  note: >-
+    Leena AI documents a four-stage delivery lifecycle for AI Colleagues — SCOPE
+    (requirement gathering), BUILD (in staging), VALIDATE (UAT planning), OPERATE
+    (monitoring in production) — with distinct staging and production environments.
+  lifecycle_docs:
+    - https://docs.leena.ai/docs/requirement-gathering-for-creating-an-ai-colleague-aic
+    - https://docs.leena.ai/docs/building-in-staging
+    - https://docs.leena.ai/docs/planning-uat-testing-for-ai-colleagues-aics
+    - https://docs.leena.ai/docs/monitoring-in-production
+changelog:
+  url: https://docs.leena.ai/changelog
+  cadence: monthly
+  detail: changelog/leena-ai-changelog.yml
+gaps:
+  - No deprecation policy or notice period.
+  - No Sunset / Deprecation header support (RFC 8594).
+  - No public status page.
+  - No public SLA.
+  - Inconsistent version path placement across services.

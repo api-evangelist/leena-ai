@@ -1,0 +1,72 @@
+generated: '2026-07-19'
+method: searched
+url: https://trust.leena.ai/
+source: https://trust.leena.ai/
+discovered_via: 'Policy: field of https://leena.ai/.well-known/security.txt'
+summary: >-
+  Leena AI runs a public trust center at trust.leena.ai, referenced as the Policy URL from
+  its RFC 9116 security.txt. It publishes a broad, named certification set covering
+  information security, cloud security, privacy management and healthcare, plus a named
+  subprocessor list. Audit artefacts such as the SOC 2 Type 2 report are available on
+  request rather than published openly.
+certifications:
+  - name: SOC 2 Type 2
+    category: attestation
+    availability: report available on request
+  - name: SOC 1
+    category: attestation
+  - name: ISO/IEC 27001
+    category: information security management
+  - name: 'ISO/IEC 27017:2015'
+    category: cloud security controls
+  - name: 'ISO/IEC 27018:2019'
+    category: cloud personal data protection
+  - name: ISO/IEC 27701
+    category: privacy information management
+  - name: CSA STAR
+    category: cloud security alliance
+  - name: HIPAA
+    category: healthcare
+  - name: FedRAMP Certified Class C
+    category: us federal
+privacy_regimes:
+  - name: GDPR
+    region: EU
+  - name: CCPA
+    region: US-California
+  - name: VCDPA
+    region: US-Virginia
+  - name: LGPD
+    region: Brazil
+subprocessors:
+  published: true
+  list:
+    - Amazon Web Services
+    - Twilio
+    - SendGrid
+    - Mailgun
+    - Gupshup
+documents:
+  soc2_type2:
+    published: false
+    availability: on request
+    note: >-
+      Leena AI states that the SOC 2 Type 2 report carries the procedural detail of its
+      vulnerability management programme, in place of a separately published policy.
+data_residency:
+  regions:
+    - us-east-1
+    - eu-west-1
+    - eu-central-1
+    - canadacentral
+    - ap-southeast-1
+    - ap-south-1
+    - qatarcentral
+    - me-central2
+  note: >-
+    Region-prefixed API hosts give per-tenant data residency. Leena AI separately states its
+    MCP server runs across 14+ global regions.
+  source: https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+gaps:
+  - Compliance documents are gated behind a request rather than published.
+  - No public pen-test summary.

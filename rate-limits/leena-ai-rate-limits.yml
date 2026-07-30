@@ -1,0 +1,46 @@
+generated: '2026-07-19'
+method: searched
+docs: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+source: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+summary: >-
+  Leena AI publishes one concrete rate limit, on the Audit Logs External API: 60 requests
+  per minute per OAuth client, keyed on the JWT `id` claim, over a fixed 60-second window.
+  Breaching it returns HTTP 429. No rate limit is published for the External AOP API, the
+  analytics endpoint, the Knowledge Management connector or the MCP server.
+limits:
+  - api: openapi/leena-ai-audit-logs-openapi.yml
+    name: Audit Logs External API default
+    limit: 60
+    unit: requests
+    window: 60s
+    window_type: fixed
+    scope: per OAuth client
+    key: JWT `id` claim
+    on_exceed:
+      status: 429
+      message: Rate limit exceeded. Please retry after some time.
+    source: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+headers:
+  quota_headers_published: false
+  retry_after_published: false
+  note: >-
+    Leena AI does not document any rate-limit signalling headers (no X-RateLimit-*, no
+    RateLimit-* per RFC 9239 draft, no Retry-After). Clients must infer remaining quota and
+    back off on 429 without server guidance.
+undocumented:
+  - api: openapi/leena-ai-aop-openapi.yml
+    note: No published rate limit for AOP execute/status or the analytics query.
+  - api: openapi/leena-ai-knowledge-management-openapi.yml
+    note: >-
+      No published rate limit for attachment upload or article sync, which matters for bulk
+      knowledge migrations.
+  - api: mcp/leena-ai-mcp.yml
+    note: No published rate limit for the MCP server or A2A endpoint.
+guidance:
+  - Poll audit logs with cursor pagination and a limit near the 1000 maximum to stay well inside 60 rpm.
+  - Use exponential backoff on 429 since no Retry-After is returned.
+  - Refresh OAuth tokens proactively; token refresh calls also consume request budget.
+gaps:
+  - No rate-limit headers on any endpoint.
+  - No Retry-After on 429.
+  - Rate limits published for only one of four external APIs.

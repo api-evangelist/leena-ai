@@ -1,0 +1,97 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Leena AI Knowledge Management REST Connector
+  version: 1.0.0
+  x-generated: '2026-07-19'
+  x-method: generated
+  x-source: openapi/leena-ai-knowledge-management-openapi.yml
+  x-note: >-
+    Applies API Evangelist annotations on top of the generated KM connector spec without
+    mutating it.
+extends: ../openapi/leena-ai-knowledge-management-openapi.yml
+actions:
+  - target: $.info
+    description: Record provenance and the unresolved host caveat.
+    update:
+      x-apievangelist:
+        enriched: '2026-07-19'
+        spec_origin: generated-from-prose-docs
+        provider_publishes_openapi: false
+        conventions: conventions/leena-ai-conventions.yml
+      x-host-caveat:
+        article_endpoint_host_published: false
+        detail: >-
+          Leena AI supplies the connector host per tenant. The server entry is templated
+          rather than guessed.
+  - target: $.paths['/api/integration/articles/sync/'].post
+    description: >-
+      Record the upsert-by-reference_id behaviour, which is the connector's de facto
+      idempotency mechanism.
+    update:
+      x-agentic-access:
+        action-class: write
+        consequence: medium
+        reversible: true
+        rationale: >-
+          Writes content into the knowledge base that grounds agent answers. Bad content
+          propagates into employee-facing responses.
+      x-idempotency:
+        supported: true
+        mechanism: upsert-by-key
+        key_field: reference_id
+        key_header: null
+        guidance: >-
+          There is no Idempotency-Key header, but articles are keyed on the caller-supplied
+          `reference_id`, so re-syncing the same reference_id updates the existing article
+          rather than creating a duplicate. Use a stable source-system identifier.
+      x-ordering:
+        guidance: >-
+          Upload attachments with uploadKnowledgeAttachment first and collect their
+          attachment_id values, then reference them from this call. Attachments cannot be
+          attached retroactively in a single step.
+  - target: $.paths['/api/integration/articles/upload/'].post
+    description: Record the supported file types as a machine-readable list.
+    update:
+      x-agentic-access:
+        action-class: write
+        consequence: low
+        reversible: true
+      x-supported-file-types:
+        - PDF
+        - DOC
+        - DOCX
+        - TXT
+        - HTML
+        - XLS
+        - XLSX
+        - PPT
+        - PPTX
+        - PNG
+        - JPEG
+  - target: $.paths['/sync/complete/'].post
+    description: Record that this is the indexing trigger and should be called once per bulk load.
+    update:
+      x-agentic-access:
+        action-class: write
+        consequence: medium
+        reversible: false
+        rationale: Triggers reindexing of the knowledge base after a bulk load.
+      x-usage:
+        call_once_per: bulk migration
+        guidance: >-
+          Call only after every article in the migration has been synced. Calling it
+          mid-migration indexes a partial corpus.
+  - target: $.components.securitySchemes.bearerAuth
+    description: Flag the short token lifetime specific to this connector.
+    update:
+      x-token-ttl-minutes: 30
+      x-guidance: >-
+        The KM connector's documented token validity is 30 minutes — half the 3600 seconds
+        documented for the AOP and Audit Logs APIs. Bulk migrations will outlive a single
+        token, so implement refresh in the middleware as Leena AI recommends.
+  - target: $.components.schemas.ArticleSyncRequest
+    description: Flag the HTML validity requirement that is a common integration failure.
+    update:
+      x-validation-note: >-
+        `html_content` must be valid HTML. Malformed markup is the documented failure mode
+        for this operation.

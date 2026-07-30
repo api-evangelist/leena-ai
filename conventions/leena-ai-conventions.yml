@@ -1,0 +1,155 @@
+generated: '2026-07-19'
+method: searched
+sources:
+  - https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+  - https://docs.leena.ai/docs/rest
+summary: >-
+  Cross-cutting runtime semantics for Leena AI's external APIs, harvested from the public
+  guides and cross-checked against the generated OpenAPI in openapi/. Leena AI is a
+  regionally-partitioned, OAuth-2.0 bearer platform with cursor pagination on its one
+  high-volume read endpoint and an asynchronous execute-then-poll model for agent work.
+  Notably it publishes NO idempotency mechanism and NO request-id tracing header.
+authentication:
+  style: oauth2_password_grant
+  header: 'Authorization: Bearer <access_token>'
+  token_endpoint: 'https://<region-code>-acl.leena.ai/api/v1.0/oauth/token'
+  client_auth: HTTP Basic, base64 of clientId:clientSecret
+  token_ttl_seconds: 3600
+  refresh_token: true
+  detail: authentication/leena-ai-authentication.yml
+regions:
+  model: >-
+    Hosts are region-prefixed as `https://<region-code>-<service>.leena.ai`. The default
+    region (ap-south-1) is served on the unprefixed host, e.g. `acl.leena.ai` and
+    `auditlogs.leena.ai`.
+  services:
+    acl: Authentication / token issuance
+    aic: AI Colleague and AOP execution
+    auditlogs: Audit log reads
+    analytics-api: Analytics queries
+  codes:
+    - us-east-1
+    - eu-west-1
+    - eu-central-1
+    - canadacentral
+    - ap-southeast-1
+    - ap-south-1
+    - qatarcentral
+    - me-central2
+  implication: >-
+    Region is part of the base URL, not a header or path segment, so clients must be
+    configured per tenant region. There is no global endpoint that routes to the right
+    region.
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    Leena AI documents no idempotency key, no request deduplication and no safe-retry
+    contract on POST /api/v1/external/aop/execute — the one clearly non-idempotent,
+    side-effecting operation in the surface. A retried execute is expected to start a
+    second agent run. Callers should dedupe on their own side using the `reference_id`
+    they pass, and use GET /api/v1/external/aop/items/{aop_item_id}/status to confirm
+    before retrying.
+  workaround: >-
+    The Knowledge Management connector is effectively idempotent by key: articles are
+    upserted on the caller-supplied `reference_id`, so re-syncing the same reference_id
+    updates rather than duplicates.
+pagination:
+  styles:
+    - api: audit-logs
+      style: cursor
+      params:
+        cursor: Opaque base64 cursor from the prior response.
+        updatedAt: ISO-8601 lower bound, required on the first call.
+        limit: 1-1000, default 100.
+      response_fields:
+        data: The page of records.
+        nextCursor: Cursor for the next page, null when exhausted.
+        hasMore: Boolean, whether more records remain.
+      sort: ascending by (updatedAt, _id)
+      cursor_format: 'base64({"updatedAt": "<ISO-8601>", "_id": "<24-char hex>"})'
+      cursor_opacity: >-
+        Documented as opaque despite the decodable structure — treat as opaque and pass
+        back verbatim.
+      incremental: >-
+        Designed for incremental sync: persist the last `updatedAt` and resume from it.
+    - api: analytics
+      style: offset
+      params:
+        page: Page number, default 1.
+        limit: Page size, default 10.
+      response_fields:
+        total: Total record count.
+        page: Echoed page.
+        limit: Echoed limit.
+      incremental: 'filters[timestamp][gt] supports incremental polling.'
+  note: The two paginated surfaces use different styles — cursor vs page/limit.
+async_model:
+  pattern: execute-then-poll
+  description: >-
+    POST /api/v1/external/aop/execute returns 202-style semantics over HTTP 200 with
+    status `accepted` and an `aop_item_id`. Progress is retrieved by polling
+    GET /api/v1/external/aop/items/{aop_item_id}/status.
+  terminal_states: [completed, failed, aborted]
+  non_terminal_states: [in_progress, paused]
+  callbacks: >-
+    No completion webhook or callback URL is documented for AOP runs — polling is the only
+    published completion signal.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation header is documented. The AOP execute response does return
+    `request_id` and `run_id` in its body, which are the only correlation handles published.
+  body_correlation_fields:
+    - request_id
+    - run_id
+    - aop_item_id
+    - reference_id
+versioning:
+  style: path
+  observed:
+    - /api/v1.0/oauth/token
+    - /api/v1/external/aop/...
+    - /external/v1/audit-logs
+  note: >-
+    Version placement is inconsistent across services — `/api/v1.0/`, `/api/v1/` and
+    `/external/v1/` all appear. Two of the external APIs are labelled Beta.
+  detail: lifecycle/leena-ai-lifecycle.yml
+errors:
+  envelope: '{ "message": "<human readable>" }'
+  rfc9457: false
+  anomaly: >-
+    Insufficient scope is 401 on the Audit Logs API but 403 on the AOP API; the analytics
+    endpoint returns HTTP 200 with `isSuccess: false` on query failure.
+  detail: errors/leena-ai-problem-types.yml
+rate_limiting:
+  published: partial
+  known: 60 requests/minute on the Audit Logs API, per OAuth client.
+  headers: none
+  detail: rate-limits/leena-ai-rate-limits.yml
+content_types:
+  request:
+    - application/json
+    - multipart/form-data (attachment upload)
+  response:
+    - application/json
+data_formats:
+  timestamps: ISO-8601
+  ids: 24-character hex (MongoDB ObjectId style) for `_id`
+  dates: 'YYYY-MM-DD for analytics from/to'
+field_expansion:
+  supported: false
+  note: No sparse fieldsets, field selection or expansion parameters are documented.
+metadata:
+  supported: true
+  note: >-
+    Audit log records carry a `metadata[]` array; AOP execution accepts a free-form
+    `context` object of key-value pairs.
+gaps:
+  - No idempotency key on the side-effecting AOP execute operation.
+  - No request-id / correlation response header.
+  - No rate-limit or Retry-After headers.
+  - No completion webhook for asynchronous AOP runs.
+  - Inconsistent version path placement across services.
+  - No machine-readable error codes.

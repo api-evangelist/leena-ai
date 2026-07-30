@@ -1,0 +1,22 @@
+{
+  "provider": "leena-ai",
+  "sources": [
+    "leena-ai-analytics-api-openapi.yml",
+    "leena-ai-aop-api-openapi.yml",
+    "leena-ai-audit-logs-api-openapi.yml",
+    "leena-ai-authentication-api-openapi.yml",
+    "leena-ai-knowledge-articles-api-openapi.yml"
+  ],
+  "outputs": [
+    "leena-ai-analytics-api-openapi.yml",
+    "leena-ai-aop-api-openapi.yml",
+    "leena-ai-audit-logs-api-openapi.yml",
+    "leena-ai-authentication-api-openapi.yml",
+    "leena-ai-knowledge-articles-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

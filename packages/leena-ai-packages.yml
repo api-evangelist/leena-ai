@@ -1,0 +1,82 @@
+generated: '2026-07-19'
+method: searched
+probed_on: '2026-07-19'
+summary: >-
+  Leena AI publishes no API client library for any language. The only first-party packages
+  found on any public registry are two legacy NativeScript mobile-embed SDKs published in
+  2022 under the @leena-ai npm scope — these embed the Leena virtual assistant in a mobile
+  app, they are NOT clients for the External AOP, Audit Logs or Knowledge Management REST
+  APIs. Integrators of those APIs are expected to call them directly over HTTP, or to reach
+  the platform through MCP/A2A rather than through an SDK.
+registries_searched:
+  - registry: npm
+    result: 2 first-party packages under the @leena-ai scope
+  - registry: pypi
+    result: none (leena-ai and leenaai both 404)
+  - registry: maven-central
+    result: none found
+  - registry: nuget
+    result: none found
+  - registry: pkg.go.dev
+    result: none found
+  - registry: rubygems
+    result: none found
+  - registry: packagist
+    result: none found
+  - registry: crates.io
+    result: none found
+packages:
+  - language: javascript
+    registry: npm
+    name: '@leena-ai/sdk'
+    version: 1.0.5
+    url: https://www.npmjs.com/package/@leena-ai/sdk
+    install: npm install @leena-ai/sdk
+    official: true
+    official_evidence: >-
+      Published under the @leena-ai npm scope; repository is
+      bitbucket.org/chatteron/ns-app-sdk (Chatteron is Leena AI's former company name) and
+      the maintainer set includes `anandprajapati`, matching Leena AI co-founder Anand
+      Prajapati.
+    kind: mobile-embed
+    platform: NativeScript
+    api_client: false
+    last_published: '2022-11-10'
+    maintained: false
+    note: >-
+      Legacy. Embeds the Leena AI assistant into a NativeScript mobile app; it is not a
+      client for the external REST APIs. No release in over three years.
+  - language: javascript
+    registry: npm
+    name: '@leena-ai/nativescript-sdk'
+    version: 1.1.5
+    url: https://www.npmjs.com/package/@leena-ai/nativescript-sdk
+    install: npm install @leena-ai/nativescript-sdk
+    official: true
+    official_evidence: >-
+      Same @leena-ai npm scope and same maintainer set (alokparikh16, anandprajapati) as
+      @leena-ai/sdk.
+    kind: mobile-embed
+    platform: NativeScript
+    api_client: false
+    last_published: '2022-12-08'
+    maintained: false
+api_clients:
+  count: 0
+  note: >-
+    No first-party client library exists for the External AOP API, the Audit Logs External
+    API or the Knowledge Management REST connector in any language.
+alternatives:
+  - approach: MCP
+    note: >-
+      Leena AI's recommended programmatic surface for agents is its hosted MCP server,
+      which any MCP-capable client can consume without a language SDK.
+    detail: mcp/leena-ai-mcp.yml
+  - approach: direct HTTP
+    note: >-
+      The REST APIs are plain JSON over HTTPS with OAuth 2.0 bearer tokens; the generated
+      specs in openapi/ can drive client generation.
+gaps:
+  - No API client library in any language.
+  - The two published packages are unmaintained since 2022.
+  - No package is linked from the developer documentation.

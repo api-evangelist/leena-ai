@@ -1,0 +1,116 @@
+generated: '2026-07-19'
+method: searched
+format: json
+docs: https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+sources:
+  - https://docs.leena.ai/docs/audit-logs-external-api-authentication-usage-guide-beta
+  - https://docs.leena.ai/docs/external-aop-api-authentication-usage-guide
+summary: >-
+  Leena AI's external APIs return a plain JSON error object with a human-readable `message`
+  field. They do NOT implement RFC 9457 problem+json, and there is no stable machine-readable
+  error code — callers must branch on HTTP status and, for the 401 family, on the message
+  string. The analytics endpoint is an exception to normal status semantics: a query-level
+  failure returns HTTP 200 with `isSuccess: false`.
+envelope:
+  content_type: application/json
+  shape:
+    message: Human-readable description of the failure.
+  rfc9457: false
+  machine_readable_code: false
+problem_types:
+  - status: 400
+    title: Invalid cursor
+    message: Invalid cursor
+    api: audit-logs
+    operations: [listAuditLogs]
+    cause: The supplied `cursor` is not a valid opaque base64 cursor from a prior response.
+    remediation: >-
+      Restart the page walk from an `updatedAt` lower bound, then follow `nextCursor`
+      verbatim without modifying it.
+  - status: 400
+    title: Validation error
+    message: DTO validation error
+    api: audit-logs
+    operations: [listAuditLogs]
+    cause: >-
+      `updatedAt` is missing or not a valid ISO-8601 timestamp when no cursor is supplied,
+      or `limit` falls outside 1-1000.
+    remediation: Supply a valid ISO-8601 `updatedAt` and a `limit` within 1-1000.
+  - status: 400
+    title: Invalid request
+    api: aop
+    operations: [executeAop, getAopStatus, queryAicAnalytics]
+    cause: Malformed request body or query parameters.
+    remediation: >-
+      Check that `aop_id` is present on execute, and that `metricId`, `responseType`,
+      `from` and `to` are present on the analytics query.
+  - status: 401
+    title: Missing or invalid Authorization header
+    message: Missing or invalid Authorization header
+    api: audit-logs
+    cause: No Authorization header, or a header that is not a Bearer token.
+    remediation: 'Send `Authorization: Bearer <access_token>`.'
+  - status: 401
+    title: Invalid token
+    message: Invalid token
+    api: audit-logs
+    cause: The token signature is invalid or the token is malformed.
+    remediation: Re-issue a token from the regional ACL token endpoint.
+  - status: 401
+    title: Token expired
+    message: Token expired
+    api: audit-logs
+    cause: The access token is past its 3600-second lifetime.
+    remediation: >-
+      Use the refresh token, or re-run the password grant. Refresh proactively rather than
+      waiting for the 401.
+  - status: 401
+    title: Insufficient OAuth scope
+    message: Insufficient OAuth scope
+    api: audit-logs
+    cause: The token was issued without the `audit-logs:read` scope.
+    remediation: Request a client credential provisioned with `audit-logs:read`.
+    note: >-
+      Leena AI returns 401 rather than the conventional 403 for insufficient scope on this
+      API, while the AOP API uses 403 for the same condition. Handle both.
+  - status: 401
+    title: Token is missing botId
+    message: Token is missing botId
+    api: audit-logs
+    cause: The token carries no `botId` claim, so the request cannot be tenant-scoped.
+    remediation: Obtain a token bound to a bot from your Leena AI representative.
+  - status: 403
+    title: Insufficient scope
+    api: aop
+    operations: [executeAop, getAopStatus]
+    cause: The token lacks the scope required for AOP execution or status.
+    remediation: Request a credential provisioned for AOP execution.
+  - status: 404
+    title: Not found
+    api: aop
+    operations: [executeAop, getAopStatus]
+    cause: The `aop_id` or `aop_item_id` does not exist in the tenant.
+    remediation: Verify the identifier, and that it belongs to the authenticated tenant.
+  - status: 429
+    title: Rate limit exceeded
+    message: Rate limit exceeded. Please retry after some time.
+    api: audit-logs
+    cause: More than 60 requests in a 60-second window for the OAuth client.
+    remediation: >-
+      Back off and retry. See rate-limits/leena-ai-rate-limits.yml — no Retry-After or
+      quota headers are documented, so use exponential backoff.
+  - status: 200
+    title: Query error (soft failure)
+    api: analytics
+    operations: [queryAicAnalytics]
+    cause: >-
+      The analytics endpoint returns HTTP 200 with `isSuccess: false` when the query itself
+      fails.
+    remediation: >-
+      Always inspect the `isSuccess` boolean on analytics responses; do not treat HTTP 200
+      as success.
+gaps:
+  - No RFC 9457 application/problem+json support.
+  - No stable machine-readable error code or type URI.
+  - No documented Retry-After header on 429.
+  - Inconsistent insufficient-scope status between the Audit Logs (401) and AOP (403) APIs.

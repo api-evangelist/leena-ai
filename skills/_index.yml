@@ -1,0 +1,63 @@
+generated: '2026-07-19'
+method: generated
+source: >-
+  Generated from openapi/ (itself generated from Leena AI's published prose documentation)
+  plus conventions/, errors/, scopes/ and rate-limits/ in this repo. Leena AI publishes no
+  Agent Skills or AGENTS.md of its own — searched 2026-07-19.
+provider_published_skills: false
+summary: >-
+  Three packaged Agent Skills covering the marquee flows of Leena AI's external API surface:
+  running an agent procedure, exporting audit logs, and syncing the knowledge base. Every
+  operationId referenced is verified against the specs in openapi/.
+skills:
+  - name: leena-ai-run-agent-procedure
+    file: leena-ai-run-agent-procedure.md
+    description: >-
+      Trigger an Agent Operating Procedure on an AI Colleague and poll it to a terminal
+      state, handling the paused (human-approval) state and the absence of idempotency.
+    api: leena-ai:external-aop-api
+    spec: openapi/leena-ai-aop-openapi.yml
+    operations:
+      - executeAop
+      - getAopStatus
+    risk: high
+    risk_note: >-
+      executeAop starts an autonomous agent run that can act across connected enterprise
+      systems, and carries no idempotency key.
+  - name: leena-ai-export-audit-logs
+    file: leena-ai-export-audit-logs.md
+    description: >-
+      Incrementally export audit records via cursor pagination for SIEM or warehouse sync,
+      within the 60 rpm limit and handling the PII the records carry.
+    api: leena-ai:audit-logs-external-api
+    spec: openapi/leena-ai-audit-logs-openapi.yml
+    operations:
+      - listAuditLogs
+    risk: low
+    risk_note: >-
+      Read-only, but the response carries actor email, phone, employeeId, IP and user agent.
+  - name: leena-ai-sync-knowledge-base
+    file: leena-ai-sync-knowledge-base.md
+    description: >-
+      Migrate or continuously sync knowledge articles and attachments into the Leena
+      Knowledge Base with permission scoping and a final indexing trigger.
+    api: leena-ai:knowledge-management-rest-connector
+    spec: openapi/leena-ai-knowledge-management-openapi.yml
+    operations:
+      - createKnowledgeAccessToken
+      - uploadKnowledgeAttachment
+      - syncKnowledgeArticle
+      - completeKnowledgeSync
+    risk: medium
+    risk_note: >-
+      Writes the corpus that grounds agent answers. Idempotent by reference_id upsert, so a
+      stable source identifier is essential.
+not_covered:
+  - what: MCP tool flows (send_message, request_details, cancel)
+    why: >-
+      Consumed through Leena AI's hosted MCP server by any MCP-capable client, so a packaged
+      skill would duplicate the protocol's own tool descriptions. See mcp/leena-ai-mcp.yml.
+  - what: Analytics querying (queryAicAnalytics)
+    why: >-
+      Single-operation surface with one documented metricId; covered adequately by the spec
+      and the conventions note about its HTTP 200 soft-failure semantics.
