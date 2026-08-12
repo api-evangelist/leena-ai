@@ -189,6 +189,8 @@ apis:
   - type: Documentation
     url: https://docs.leena.ai/docs/rest
 common:
+  - type: Overlay
+    url: overlays/leena-ai-aop-overlay.yaml
   - type: Website
     url: https://leena.ai
   - type: DeveloperPortal
