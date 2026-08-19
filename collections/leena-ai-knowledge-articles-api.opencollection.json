@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leena AI External AOP Analytics Knowledge Articles API",
+    "version": "1.0-beta"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Knowledge Articles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload an attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us-east-1-aic.leena.ai/api/integration/articles/upload/",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "mime_type",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Stages a file and returns an `attachment_id` to reference from a subsequent article sync. Supported file types are PDF, DOC, DOCX, TXT, HTML, XLS, XLSX, PPT, PPTX, PNG and JPEG."
+        },
+        {
+          "info": {
+            "name": "Push a knowledge article",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us-east-1-aic.leena.ai/api/integration/articles/sync/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates an article in the Leena Knowledge Base, keyed by the source system's `reference_id`, with optional attachments and permission scoping."
+        },
+        {
+          "info": {
+            "name": "Complete the initial migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us-east-1-aic.leena.ai/sync/complete/"
+          },
+          "docs": "Signals the end of a bulk load and triggers indexing of the synced articles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

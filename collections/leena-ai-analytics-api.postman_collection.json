@@ -1,0 +1,352 @@
+{
+  "item": [
+    {
+      "id": "8e421972-e407-4beb-9b5f-6873d23bc783",
+      "name": "Analytics",
+      "description": {
+        "content": "AI Colleague run metrics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a2cad068-81b3-4396-8d9a-c8c9fae3f6b6",
+          "name": "Query AI Colleague analytics",
+          "request": {
+            "name": "Query AI Colleague analytics",
+            "description": {
+              "content": "Returns a tabular analytics result. Served from the region analytics host (`https://<region-code>-analytics-api.leena.ai`). Supports incremental polling via the `filters[timestamp][gt]` parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "analytics",
+                "query",
+                "external"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "metricId",
+                  "value": "<string>",
+                  "description": "(Required) Metric identifier, e.g. `aic:totalRunsTable`."
+                },
+                {
+                  "disabled": false,
+                  "key": "responseType",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[timestamp][gt]",
+                  "value": "<dateTime>",
+                  "description": "ISO-8601 lower bound for incremental polling."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://us-east-1-acl.leena.ai/api/v1.0/oauth/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://us-east-1-acl.leena.ai/api/v1.0/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "afd9dea4-f145-479d-9b70-57e2b04b5a18",
+              "name": "The query result. Note that a query-level failure is also returned as 200 with `isSuccess` false.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "analytics",
+                    "query",
+                    "external"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "metricId",
+                      "value": "aic:totalRunsTable"
+                    },
+                    {
+                      "key": "responseType",
+                      "value": "table"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2026-07-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2026-07-19"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filters[timestamp][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"isSuccess\": false,\n  \"result\": {\n    \"total\": 4343,\n    \"page\": 4743,\n    \"limit\": 9352\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf9df86b-6c85-4edb-9ec8-1a6a3056d2c2",
+              "name": "Malformed request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "analytics",
+                    "query",
+                    "external"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "metricId",
+                      "value": "aic:totalRunsTable"
+                    },
+                    {
+                      "key": "responseType",
+                      "value": "table"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2026-07-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2026-07-19"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filters[timestamp][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12bc84f5-38bb-4e38-821b-ee4c25b24bc9",
+              "name": "Authentication failure or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "analytics",
+                    "query",
+                    "external"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "metricId",
+                      "value": "aic:totalRunsTable"
+                    },
+                    {
+                      "key": "responseType",
+                      "value": "table"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2026-07-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2026-07-19"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filters[timestamp][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us-east-1-aic.leena.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9f231813-8e1b-40f5-ad9d-5bee040c4f74",
+    "name": "Leena AI External AOP Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Execute an Agent Operating Procedure (AOP) on a Leena AI AI Colleague from an external\nsystem and poll its execution status, plus a read-only analytics query endpoint for\nAI Colleague run metrics.\n\nThis specification was generated by the API Evangelist enrichment pipeline from\nLeena AI's published documentation. Leena AI does not publish a machine-readable\nOpenAPI definition; every path, parameter, response field and error below is\ntranscribed from the public guide cited in `x-source`.\n\n\nContact Support:\n Name: Leena AI",
+      "type": "text/plain"
+    }
+  }
+}

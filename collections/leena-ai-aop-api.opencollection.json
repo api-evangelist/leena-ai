@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leena AI External Analytics AOP API",
+    "version": "1.0-beta"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AOP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute an AOP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us-east-1-aic.leena.ai/api/v1/external/aop/execute",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "https://us-east-1-acl.leena.ai/api/v1.0/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Starts an Agent Operating Procedure run on an AI Colleague. Returns immediately with status `accepted`; poll `getAopStatus` for completion."
+        },
+        {
+          "info": {
+            "name": "Get AOP execution status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us-east-1-aic.leena.ai/api/v1/external/aop/items/:aop_item_id/status",
+            "params": [
+              {
+                "name": "aop_item_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier returned by `executeAop`."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "https://us-east-1-acl.leena.ai/api/v1.0/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the current state of a previously accepted AOP run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

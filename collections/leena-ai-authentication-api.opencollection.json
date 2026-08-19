@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leena AI External AOP Analytics Authentication API",
+    "version": "1.0-beta"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtain an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us-east-1-aic.leena.ai/api/v1.0/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchanges client credentials plus a username and password for a bearer token. Documented token validity for the KM connector is 30 minutes by default; Leena AI recommends implementing token refresh logic in your middleware."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

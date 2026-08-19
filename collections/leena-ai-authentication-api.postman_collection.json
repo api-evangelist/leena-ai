@@ -1,0 +1,175 @@
+{
+  "item": [
+    {
+      "id": "fbe46b40-53a9-46b7-aa3b-9a68773e9a1e",
+      "name": "Authentication",
+      "description": {
+        "content": "Obtain a bearer token.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68caeb4b-c31d-4940-858a-6a14faf97dc4",
+          "name": "Obtain an access token",
+          "request": {
+            "name": "Obtain an access token",
+            "description": {
+              "content": "Exchanges client credentials plus a username and password for a bearer token. Documented token validity for the KM connector is 30 minutes by default; Leena AI recommends implementing token refresh logic in your middleware.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1.0",
+                "oauth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": \"<string>\",\n  \"clientSecret\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "305e838a-5f47-400b-8dce-34524f3012b7",
+              "name": "A bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1.0",
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"<string>\",\n  \"clientSecret\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 8305\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b230a91-b0b6-4c75-9d2b-77b982a828f7",
+              "name": "Invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1.0",
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"<string>\",\n  \"clientSecret\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us-east-1-aic.leena.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9cd3a573-809e-4bd3-9407-964c55f900b2",
+    "name": "Leena AI External AOP Analytics Authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Execute an Agent Operating Procedure (AOP) on a Leena AI AI Colleague from an external\nsystem and poll its execution status, plus a read-only analytics query endpoint for\nAI Colleague run metrics.\n\nThis specification was generated by the API Evangelist enrichment pipeline from\nLeena AI's published documentation. Leena AI does not publish a machine-readable\nOpenAPI definition; every path, parameter, response field and error below is\ntranscribed from the public guide cited in `x-source`.\n\n\nContact Support:\n Name: Leena AI",
+      "type": "text/plain"
+    }
+  }
+}

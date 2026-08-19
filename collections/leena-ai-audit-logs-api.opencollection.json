@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leena AI External AOP Analytics Audit Logs API",
+    "version": "1.0-beta"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audit Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List audit logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us-east-1-aic.leena.ai/external/v1/audit-logs",
+            "params": [
+              {
+                "name": "updatedAt",
+                "value": "2026-07-01T00:00:00.000Z",
+                "type": "query",
+                "description": "ISO-8601 lower bound. Required when no `cursor` is supplied. Returns records where `updatedAt` is strictly greater than this value."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque base64 cursor taken from the prior response `nextCursor`. When present it overrides `updatedAt`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "https://us-east-1-acl.leena.ai/api/v1.0/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns audit log records with `updatedAt` greater than the supplied lower bound,\nsorted ascending by `(updatedAt, _id)`. Supply `updatedAt` on the first call, then\nfollow `nextCursor` until `hasMore` is false. Requires the `audit-logs:read` scope.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,336 @@
+{
+  "item": [
+    {
+      "id": "e2de55c6-dc3e-403e-b5c5-cf7e2978c2ea",
+      "name": "Audit Logs",
+      "description": {
+        "content": "Retrieve audit log records for the authenticated bot.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d5265304-54b7-4ffe-84ee-15b53064f3a2",
+          "name": "List audit logs",
+          "request": {
+            "name": "List audit logs",
+            "description": {
+              "content": "Returns audit log records with `updatedAt` greater than the supplied lower bound,\nsorted ascending by `(updatedAt, _id)`. Supply `updatedAt` on the first call, then\nfollow `nextCursor` until `hasMore` is false. Requires the `audit-logs:read` scope.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "external",
+                "v1",
+                "audit-logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "updatedAt",
+                  "value": "<dateTime>",
+                  "description": "ISO-8601 lower bound. Required when no `cursor` is supplied. Returns records where `updatedAt` is strictly greater than this value."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Opaque base64 cursor taken from the prior response `nextCursor`. When present it overrides `updatedAt`."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of records per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://us-east-1-acl.leena.ai/api/v1.0/oauth/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://us-east-1-acl.leena.ai/api/v1.0/oauth/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bcb065cc-343d-40a8-bc7e-d62e6b585669",
+              "name": "A page of audit log records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "external",
+                    "v1",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updatedAt",
+                      "value": "2026-07-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_id\": \"string\",\n      \"auditLogId\": \"string\",\n      \"updatedAt\": \"2016-01-10T13:55:59.129Z\",\n      \"botId\": \"string\",\n      \"componentId\": \"string\",\n      \"activity\": \"string\",\n      \"priority\": \"critical\",\n      \"status\": \"fail\",\n      \"message\": \"string\",\n      \"generatedAt\": \"1998-09-25T00:33:39.101Z\",\n      \"actor\": {\n        \"userId\": \"string\",\n        \"userType\": \"none\",\n        \"source\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"employeeId\": \"string\"\n      },\n      \"targetUser\": {\n        \"userId\": \"string\",\n        \"userType\": \"bot\",\n        \"source\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"employeeId\": \"string\"\n      },\n      \"submoduleId\": \"string\",\n      \"resourceId\": \"string\",\n      \"ip\": \"string\",\n      \"useragent\": \"string\",\n      \"redirectionLink\": \"string\"\n    },\n    {\n      \"_id\": \"string\",\n      \"auditLogId\": \"string\",\n      \"updatedAt\": \"1971-09-03T03:54:09.110Z\",\n      \"botId\": \"string\",\n      \"componentId\": \"string\",\n      \"activity\": \"string\",\n      \"priority\": \"high\",\n      \"status\": \"success\",\n      \"message\": \"string\",\n      \"generatedAt\": \"1985-07-14T03:55:26.043Z\",\n      \"actor\": {\n        \"userId\": \"string\",\n        \"userType\": \"bot\",\n        \"source\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"employeeId\": \"string\"\n      },\n      \"targetUser\": {\n        \"userId\": \"string\",\n        \"userType\": \"bot\",\n        \"source\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"employeeId\": \"string\"\n      },\n      \"submoduleId\": \"string\",\n      \"resourceId\": \"string\",\n      \"ip\": \"string\",\n      \"useragent\": \"string\",\n      \"redirectionLink\": \"string\"\n    }\n  ],\n  \"hasMore\": true,\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d0bde76-0ec2-4709-a47a-3e465c03f22b",
+              "name": "Invalid cursor, or missing/invalid `updatedAt`, or DTO validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "external",
+                    "v1",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updatedAt",
+                      "value": "2026-07-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c211f87c-9024-49db-8b75-caeedda068d9",
+              "name": "Missing or invalid Authorization header, invalid or expired token, insufficient OAuth scope, or a token missing the `botId` claim.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "external",
+                    "v1",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updatedAt",
+                      "value": "2026-07-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "621db103-be97-4c23-aa07-9105e52c06ba",
+              "name": "Rate limit exceeded (60 requests per minute per OAuth client).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "external",
+                    "v1",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updatedAt",
+                      "value": "2026-07-01T00:00:00.000Z"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us-east-1-aic.leena.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2ab6f05a-8d01-4f1f-9ea4-1a383e084392",
+    "name": "Leena AI External AOP Analytics Audit Logs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Execute an Agent Operating Procedure (AOP) on a Leena AI AI Colleague from an external\nsystem and poll its execution status, plus a read-only analytics query endpoint for\nAI Colleague run metrics.\n\nThis specification was generated by the API Evangelist enrichment pipeline from\nLeena AI's published documentation. Leena AI does not publish a machine-readable\nOpenAPI definition; every path, parameter, response field and error below is\ntranscribed from the public guide cited in `x-source`.\n\n\nContact Support:\n Name: Leena AI",
+      "type": "text/plain"
+    }
+  }
+}

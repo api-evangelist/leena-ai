@@ -1,0 +1,514 @@
+{
+  "item": [
+    {
+      "id": "57c9cd76-bed9-44aa-a155-ddb4c443f89e",
+      "name": "Knowledge Articles",
+      "description": {
+        "content": "Stage attachments and sync articles into the Leena Knowledge Base.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "953a26ab-383f-4da8-989f-5e5f5ae947de",
+          "name": "Upload an attachment",
+          "request": {
+            "name": "Upload an attachment",
+            "description": {
+              "content": "Stages a file and returns an `attachment_id` to reference from a subsequent article sync. Supported file types are PDF, DOC, DOCX, TXT, HTML, XLS, XLSX, PPT, PPTX, PNG and JPEG.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "integration",
+                "articles",
+                "upload",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "mime_type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f25052f-b602-437d-a939-2c01f137674c",
+              "name": "The attachment was staged.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "integration",
+                    "articles",
+                    "upload",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "mime_type",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attachment_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc696f67-c4ef-43e5-aafe-fc46c9d5caa1",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "integration",
+                    "articles",
+                    "upload",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "mime_type",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0860643-1a3d-4b84-b4fc-c43918236a41",
+          "name": "Push a knowledge article",
+          "request": {
+            "name": "Push a knowledge article",
+            "description": {
+              "content": "Creates or updates an article in the Leena Knowledge Base, keyed by the source system's `reference_id`, with optional attachments and permission scoping.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "integration",
+                "articles",
+                "sync",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reference_id\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"attachments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"permissions\": {\n    \"department\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"location\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"user_groups\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f79204e9-ff63-41be-9d2d-5356e0ceb1ce",
+              "name": "The article was accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "integration",
+                    "articles",
+                    "sync",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference_id\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"attachments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"permissions\": {\n    \"department\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"location\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"user_groups\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46a9100a-3048-46e2-b372-dee9f857a76b",
+              "name": "Invalid article payload, e.g. `html_content` that is not valid HTML.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "integration",
+                    "articles",
+                    "sync",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference_id\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"attachments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"permissions\": {\n    \"department\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"location\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"user_groups\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a46e9f4-0a2b-4695-b258-13555b64ed5c",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "integration",
+                    "articles",
+                    "sync",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference_id\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"attachments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"permissions\": {\n    \"department\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"location\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"user_groups\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e335b55b-ae7b-4c21-820a-08d76ec1ca43",
+          "name": "Complete the initial migration",
+          "request": {
+            "name": "Complete the initial migration",
+            "description": {
+              "content": "Signals the end of a bulk load and triggers indexing of the synced articles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sync",
+                "complete",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "44e8ee48-4d96-4523-89d7-5c079e74df50",
+              "name": "Indexing was triggered.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sync",
+                    "complete",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82ec9111-2fb1-433a-b7e6-95e8d9893c72",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sync",
+                    "complete",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us-east-1-aic.leena.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ccb4f8ef-d35e-4d16-9755-57a9c9d52506",
+    "name": "Leena AI External AOP Analytics Knowledge Articles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Execute an Agent Operating Procedure (AOP) on a Leena AI AI Colleague from an external\nsystem and poll its execution status, plus a read-only analytics query endpoint for\nAI Colleague run metrics.\n\nThis specification was generated by the API Evangelist enrichment pipeline from\nLeena AI's published documentation. Leena AI does not publish a machine-readable\nOpenAPI definition; every path, parameter, response field and error below is\ntranscribed from the public guide cited in `x-source`.\n\n\nContact Support:\n Name: Leena AI",
+      "type": "text/plain"
+    }
+  }
+}
