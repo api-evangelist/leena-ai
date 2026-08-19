@@ -36,7 +36,7 @@ x-tier-reason: >-
   Three documented external REST APIs plus a first-party hosted MCP and A2A server, an RFC
   9116 security.txt, a public trust center with named certifications, llms.txt on two hosts
   and a dated monthly changelog.
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-19'
 tags:
