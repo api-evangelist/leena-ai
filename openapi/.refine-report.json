@@ -17,6 +17,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "leena-ai-analytics-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "leena-ai-aop-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "leena-ai-audit-logs-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "leena-ai-authentication-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "leena-ai-knowledge-articles-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Leena AI External AOP Analytics Knowledge Articles API
   version: 1.0-beta
@@ -127,6 +127,27 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    AttachmentResponse:
+      type: object
+      properties:
+        attachment_id:
+          type: string
+    ArticlePermissions:
+      type: object
+      description: Visibility rules for the article.
+      properties:
+        department:
+          type: array
+          items:
+            type: string
+        location:
+          type: array
+          items:
+            type: string
+        user_groups:
+          type: array
+          items:
+            type: string
     ArticleSyncRequest:
       type: object
       properties:
@@ -146,31 +167,10 @@ components:
       required:
       - reference_id
       - html_content
-    ArticlePermissions:
-      type: object
-      description: Visibility rules for the article.
-      properties:
-        department:
-          type: array
-          items:
-            type: string
-        location:
-          type: array
-          items:
-            type: string
-        user_groups:
-          type: array
-          items:
-            type: string
     Error:
       type: object
       properties:
         message:
-          type: string
-    AttachmentResponse:
-      type: object
-      properties:
-        attachment_id:
           type: string
   securitySchemes:
     oauth2:
