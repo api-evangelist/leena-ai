@@ -13,6 +13,18 @@ description: >-
   Agentforce and ServiceNow call into Leena AI's agents. The platform is region-partitioned
   across eight named regions and carries SOC 2 Type 2, ISO/IEC 27001/27017/27018/27701, HIPAA
   and CSA STAR certifications.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
