@@ -1,0 +1,30 @@
+# Front Door AI Index — leena-ai — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: leena-ai
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: leena.ai
+  final_host: leena.ai
+  ownership: own
+  owner: leena-ai
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 63
+  host_score: 63
+  density: 51.81
+  words: 1216
+  tiers:
+    agentic: 12
+    core: 51
+    model: 0
+  ambiguous: 3
+  top_terms:
+    AI: 51
+    agentic: 6
+    MCP: 3
+    agent: 3
+    copilot: 2
+    AI agent: 1

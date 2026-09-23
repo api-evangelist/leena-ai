@@ -15,9 +15,7 @@ info:
 
     OpenAPI definition; every path, parameter, response field and error below is
 
-    transcribed from the public guide cited in `x-source`.
-
-    '
+    transcribed from the public guide cited in `x-source`.'
   contact:
     name: Leena AI
     url: https://docs.leena.ai/
@@ -37,7 +35,7 @@ paths:
     get:
       operationId: queryAicAnalytics
       summary: Query AI Colleague analytics
-      description: Returns a tabular analytics result. Served from the region analytics host (`https://<region-code>-analytics-api.leena.ai`). Supports incremental polling via the `filters[timestamp][gt]` parameter.
+      description: Returns a tabular analytics result. Served from the region analytics host (`https://-analytics-api.leena.ai`). Supports incremental polling via the `filters[timestamp][gt]` parameter.
       tags:
       - Analytics
       security:

@@ -1,15 +1,13 @@
 {
   "provider": "leena-ai",
   "sources": [
-    "leena-ai-analytics-api-openapi.yml",
-    "leena-ai-aop-api-openapi.yml",
-    "leena-ai-audit-logs-api-openapi.yml",
-    "leena-ai-authentication-api-openapi.yml",
-    "leena-ai-knowledge-articles-api-openapi.yml"
+    "_ae-authored/leena-ai-aop-openapi.yml",
+    "_ae-authored/leena-ai-audit-logs-openapi.yml",
+    "_ae-authored/leena-ai-knowledge-management-openapi.yml"
   ],
   "outputs": [
-    "leena-ai-analytics-api-openapi.yml",
     "leena-ai-aop-api-openapi.yml",
+    "leena-ai-analytics-api-openapi.yml",
     "leena-ai-audit-logs-api-openapi.yml",
     "leena-ai-authentication-api-openapi.yml",
     "leena-ai-knowledge-articles-api-openapi.yml"
@@ -18,12 +16,17 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "leena-ai-analytics-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "leena-ai-aop-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "leena-ai-audit-logs-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "leena-ai-authentication-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "leena-ai-knowledge-articles-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "leena-ai-aop-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "leena-ai-audit-logs-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "leena-ai-knowledge-management-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "leena-ai-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leena-ai-aop-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leena-ai-audit-logs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leena-ai-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leena-ai-knowledge-articles-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
