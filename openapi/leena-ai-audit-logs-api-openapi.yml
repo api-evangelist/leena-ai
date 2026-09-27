@@ -94,36 +94,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Actor:
-      type: object
-      properties:
-        userId:
-          type: string
-        userType:
-          type: string
-          enum:
-          - dashboard
-          - bot
-          - none
-        source:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        employeeId:
-          type: string
-      required:
-      - userId
-      - userType
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Documented values include "Invalid cursor", "Missing or invalid Authorization header", "Invalid token", "Token expired", "Insufficient OAuth scope", "Token is missing botId" and "Rate limit exceeded. Please retry after some time."
-      required:
-      - message
     ExternalAuditLog:
       type: object
       properties:
@@ -182,6 +152,28 @@ components:
       - _id
       - auditLogId
       - updatedAt
+    Actor:
+      type: object
+      properties:
+        userId:
+          type: string
+        userType:
+          type: string
+          enum:
+          - dashboard
+          - bot
+          - none
+        source:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        employeeId:
+          type: string
+      required:
+      - userId
+      - userType
     AuditLogPage:
       type: object
       properties:
@@ -200,6 +192,14 @@ components:
       required:
       - data
       - hasMore
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Documented values include "Invalid cursor", "Missing or invalid Authorization header", "Invalid token", "Token expired", "Insufficient OAuth scope", "Token is missing botId" and "Rate limit exceeded. Please retry after some time."
+      required:
+      - message
   securitySchemes:
     oauth2:
       type: oauth2

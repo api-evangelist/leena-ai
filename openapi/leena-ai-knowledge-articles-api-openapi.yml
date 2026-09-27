@@ -118,6 +118,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    AttachmentResponse:
+      type: object
+      properties:
+        attachment_id:
+          type: string
     ArticleSyncRequest:
       type: object
       properties:
@@ -157,11 +162,6 @@ components:
       type: object
       properties:
         message:
-          type: string
-    AttachmentResponse:
-      type: object
-      properties:
-        attachment_id:
           type: string
   securitySchemes:
     bearerAuth:
