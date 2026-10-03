@@ -108,6 +108,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
     AnalyticsResponse:
       type: object
       properties:
@@ -130,11 +135,6 @@ components:
               type: integer
             limit:
               type: integer
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
   securitySchemes:
     oauth2:
       type: oauth2

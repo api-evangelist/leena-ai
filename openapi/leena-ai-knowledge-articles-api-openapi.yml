@@ -123,25 +123,6 @@ components:
       properties:
         attachment_id:
           type: string
-    ArticleSyncRequest:
-      type: object
-      properties:
-        reference_id:
-          type: string
-          description: Stable identifier of the article in the source system.
-        html_content:
-          type: string
-          description: Article body. Must be valid HTML.
-        attachments:
-          type: array
-          description: Attachment identifiers returned by `uploadKnowledgeAttachment`.
-          items:
-            type: string
-        permissions:
-          $ref: '#/components/schemas/ArticlePermissions'
-      required:
-      - reference_id
-      - html_content
     ArticlePermissions:
       type: object
       description: Visibility rules for the article.
@@ -163,6 +144,25 @@ components:
       properties:
         message:
           type: string
+    ArticleSyncRequest:
+      type: object
+      properties:
+        reference_id:
+          type: string
+          description: Stable identifier of the article in the source system.
+        html_content:
+          type: string
+          description: Article body. Must be valid HTML.
+        attachments:
+          type: array
+          description: Attachment identifiers returned by `uploadKnowledgeAttachment`.
+          items:
+            type: string
+        permissions:
+          $ref: '#/components/schemas/ArticlePermissions'
+      required:
+      - reference_id
+      - html_content
   securitySchemes:
     bearerAuth:
       type: http

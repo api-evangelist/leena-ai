@@ -152,6 +152,14 @@ components:
       - _id
       - auditLogId
       - updatedAt
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Documented values include "Invalid cursor", "Missing or invalid Authorization header", "Invalid token", "Token expired", "Insufficient OAuth scope", "Token is missing botId" and "Rate limit exceeded. Please retry after some time."
+      required:
+      - message
     Actor:
       type: object
       properties:
@@ -192,14 +200,6 @@ components:
       required:
       - data
       - hasMore
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Documented values include "Invalid cursor", "Missing or invalid Authorization header", "Invalid token", "Token expired", "Insufficient OAuth scope", "Token is missing botId" and "Rate limit exceeded. Please retry after some time."
-      required:
-      - message
   securitySchemes:
     oauth2:
       type: oauth2

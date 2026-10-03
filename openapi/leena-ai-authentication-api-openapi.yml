@@ -53,6 +53,22 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Documented as 30 minutes by default for the KM connector.
     TokenRequest:
       type: object
       properties:
@@ -69,22 +85,6 @@ components:
       - clientSecret
       - username
       - password
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        token_type:
-          type: string
-          example: Bearer
-        expires_in:
-          type: integer
-          description: Documented as 30 minutes by default for the KM connector.
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http
