@@ -126,21 +126,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    AopExecuteRequest:
-      type: object
-      properties:
-        aop_id:
-          type: string
-          description: AOP identifier or ObjectId.
-        message_to_start:
-          type: string
-          description: Initial natural-language instruction.
-        context:
-          type: object
-          additionalProperties: true
-          description: Key-value pairs supplying additional context to the run.
-      required:
-      - aop_id
     Error:
       type: object
       properties:
@@ -169,6 +154,21 @@ components:
           - string
           - 'null'
           format: date-time
+    AopExecuteRequest:
+      type: object
+      properties:
+        aop_id:
+          type: string
+          description: AOP identifier or ObjectId.
+        message_to_start:
+          type: string
+          description: Initial natural-language instruction.
+        context:
+          type: object
+          additionalProperties: true
+          description: Key-value pairs supplying additional context to the run.
+      required:
+      - aop_id
     AopExecuteResponse:
       type: object
       properties:
