@@ -50,7 +50,7 @@ x-tier-reason: >-
   and a dated monthly changelog.
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-10-06'
 x-docs-platform: readme
 x-docs-platform-confidence: high
 x-docs-platform-checked: 2026-10-03
@@ -219,6 +219,8 @@ apis:
   - type: Documentation
     url: https://docs.leena.ai/docs/rest
 common:
+  - url: https://leena.ai/blog
+    type: Blog
   - type: Overlay
     url: overlays/leena-ai-aop-overlay.yaml
   - type: Website
