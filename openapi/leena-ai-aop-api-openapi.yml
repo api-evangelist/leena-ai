@@ -154,6 +154,18 @@ components:
           - string
           - 'null'
           format: date-time
+    AopExecuteResponse:
+      type: object
+      properties:
+        aop_item_id:
+          type: string
+        request_id:
+          type: string
+        run_id:
+          type: string
+        status:
+          type: string
+          example: accepted
     AopExecuteRequest:
       type: object
       properties:
@@ -169,18 +181,6 @@ components:
           description: Key-value pairs supplying additional context to the run.
       required:
       - aop_id
-    AopExecuteResponse:
-      type: object
-      properties:
-        aop_item_id:
-          type: string
-        request_id:
-          type: string
-        run_id:
-          type: string
-        status:
-          type: string
-          example: accepted
   securitySchemes:
     oauth2:
       type: oauth2

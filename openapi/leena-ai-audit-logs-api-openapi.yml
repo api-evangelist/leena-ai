@@ -94,6 +94,32 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    AuditLogPage:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalAuditLog'
+        nextCursor:
+          type:
+          - string
+          - 'null'
+          description: Opaque base64 cursor for the next page, or null when exhausted.
+        hasMore:
+          type: boolean
+          description: Whether more records remain.
+      required:
+      - data
+      - hasMore
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Documented values include "Invalid cursor", "Missing or invalid Authorization header", "Invalid token", "Token expired", "Insufficient OAuth scope", "Token is missing botId" and "Rate limit exceeded. Please retry after some time."
+      required:
+      - message
     ExternalAuditLog:
       type: object
       properties:
@@ -152,32 +178,6 @@ components:
       - _id
       - auditLogId
       - updatedAt
-    AuditLogPage:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalAuditLog'
-        nextCursor:
-          type:
-          - string
-          - 'null'
-          description: Opaque base64 cursor for the next page, or null when exhausted.
-        hasMore:
-          type: boolean
-          description: Whether more records remain.
-      required:
-      - data
-      - hasMore
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Documented values include "Invalid cursor", "Missing or invalid Authorization header", "Invalid token", "Token expired", "Insufficient OAuth scope", "Token is missing botId" and "Rate limit exceeded. Please retry after some time."
-      required:
-      - message
     Actor:
       type: object
       properties:

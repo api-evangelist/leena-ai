@@ -118,22 +118,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ArticlePermissions:
+    Error:
       type: object
-      description: Visibility rules for the article.
       properties:
-        department:
-          type: array
-          items:
-            type: string
-        location:
-          type: array
-          items:
-            type: string
-        user_groups:
-          type: array
-          items:
-            type: string
+        message:
+          type: string
     ArticleSyncRequest:
       type: object
       properties:
@@ -153,11 +142,22 @@ components:
       required:
       - reference_id
       - html_content
-    Error:
+    ArticlePermissions:
       type: object
+      description: Visibility rules for the article.
       properties:
-        message:
-          type: string
+        department:
+          type: array
+          items:
+            type: string
+        location:
+          type: array
+          items:
+            type: string
+        user_groups:
+          type: array
+          items:
+            type: string
     AttachmentResponse:
       type: object
       properties:

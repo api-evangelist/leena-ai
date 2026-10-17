@@ -53,6 +53,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
     TokenResponse:
       type: object
       properties:
@@ -64,11 +69,6 @@ components:
         expires_in:
           type: integer
           description: Documented as 30 minutes by default for the KM connector.
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
     TokenRequest:
       type: object
       properties:
